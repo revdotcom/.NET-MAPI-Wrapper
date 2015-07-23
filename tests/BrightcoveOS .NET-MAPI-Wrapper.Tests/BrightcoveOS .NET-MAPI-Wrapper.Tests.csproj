@@ -109,6 +109,7 @@
     <Compile Include="IntegrationTests\VideoRead\SearchVideosCoreTests.cs" />
     <Compile Include="IntegrationTests\VideoRead\SearchVideosUrlConstructionTests.cs" />
     <Compile Include="IntegrationTests\VideoRead\VideoReadTestBase.cs" />
+    <Compile Include="IntegrationTests\VideoWrite\AddCaptioningTest.cs" />
     <Compile Include="IntegrationTests\VideoWrite\AddImageTests.cs" />
     <Compile Include="IntegrationTests\VideoWrite\AddLogoOverlayTests.cs" />
     <Compile Include="IntegrationTests\VideoWrite\CreateVideoTests.cs" />

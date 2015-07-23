@@ -430,18 +430,63 @@ namespace BrightcoveMapiWrapper.Api
 			return RunFilePost<BrightcoveResultContainer<BrightcoveImage>>(parms, fileUploadInfo).Result;
 		}
 
-		#endregion
+        #endregion
 
-		#region AddLogoOverlay
+        #region AddCaptioning
+        public void AddCaptioning(string captionFileUrl, long videoId, string filename)
+        {
+            string propName;
+            object propValue;
+            GetIdValuesForUpload(videoId, null, "video_id", "video_reference_id", out propName, out propValue);
 
-		/// <summary>
-		/// Adds a logo overlay image to a video.
-		/// </summary>
-		/// <param name="logoOverlay">The metadata for the logo overlay you'd like to create (or update).</param>
-		/// <param name="fileUploadInfo">Information for the file to be uploaded.</param>
-		/// <param name="videoId">The ID of the video you want to assign a logo overlay to.</param>
-		/// <returns>The newly created or updated BrightcoveLogoOverlay</returns>
-		public BrightcoveLogoOverlay AddLogoOverlay(BrightcoveLogoOverlay logoOverlay, FileUploadInfo fileUploadInfo, long videoId)
+            var captionSource = new CaptionSource {
+                Complete = true,
+                IsRemote = true,
+                DisplayName = filename,
+                Url = captionFileUrl
+            };
+
+            BrightcoveParamCollection parms = CreateWriteParamCollection("add_captioning",
+                                                                         methodParams => {
+                                                                             methodParams.Add(propName, propValue);
+                                                                             methodParams.Add("caption_source", captionSource);
+                                                                             methodParams.Add("filename", filename);
+                                                                         });
+            RunPost<BrightcoveResultContainer<long>>(parms);
+        }
+
+        public void AddCaptioning(FileUploadInfo captionFileUploadInfo, long videoId, string filename)
+        {
+            string propName;
+            object propValue;
+            GetIdValuesForUpload(videoId, null, "video_id", "video_reference_id", out propName, out propValue);
+
+            var captionSource = new CaptionSource {
+                Complete = true,
+                IsRemote = false,
+                DisplayName = filename,
+            };
+
+            BrightcoveParamCollection parms = CreateWriteParamCollection("add_captioning",
+                                                                         methodParams => {
+                                                                             methodParams.Add(propName, propValue);
+                                                                             methodParams.Add("caption_source", captionSource);
+                                                                             methodParams.Add("filename", filename);
+                                                                         });
+            RunFilePost<BrightcoveResultContainer<long>>(parms, captionFileUploadInfo);
+        }
+        #endregion
+
+        #region AddLogoOverlay
+
+        /// <summary>
+        /// Adds a logo overlay image to a video.
+        /// </summary>
+        /// <param name="logoOverlay">The metadata for the logo overlay you'd like to create (or update).</param>
+        /// <param name="fileUploadInfo">Information for the file to be uploaded.</param>
+        /// <param name="videoId">The ID of the video you want to assign a logo overlay to.</param>
+        /// <returns>The newly created or updated BrightcoveLogoOverlay</returns>
+        public BrightcoveLogoOverlay AddLogoOverlay(BrightcoveLogoOverlay logoOverlay, FileUploadInfo fileUploadInfo, long videoId)
 		{
 			return DoAddLogoOverlay(logoOverlay, fileUploadInfo, videoId, null);
 		}
