@@ -60,6 +60,7 @@
     <Compile Include="Model\Items\BrightcoveAudioTrack.cs" />
     <Compile Include="Model\Items\BrightcoveItem.cs" />
     <Compile Include="Model\Items\BrightcoveVideo.cs" />
+    <Compile Include="Model\Items\CaptionSource.cs" />
     <Compile Include="Serialization\IJavaScriptConvertable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\BrightcoveItemConverter.cs" />
